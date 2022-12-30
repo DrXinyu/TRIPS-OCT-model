@@ -2,19 +2,19 @@ clc
 clear
 close all
 
-addpath('PSOCT_simulation_toolbox_v1')
-% ParentFolderPath = fileparts(pwd);
-% 
-% for index = 1:50
-%     [currentPath, FolderName] = fileparts(ParentFolderPath);
-%     if strcmp(FolderName,'Dropbox')     
-%         toolboxPath = fullfile(currentPath,'Dropbox',...
-%           'sspsoct_toolbox');
-%         addpath(genpath(toolboxPath));
-%         break;
-%     end
-%     ParentFolderPath = currentPath;
-% end
+%addpath('PSOCT_simulation_toolbox_v1')
+ParentFolderPath = fileparts(pwd);
+
+for index = 1:50
+    [currentPath, FolderName] = fileparts(ParentFolderPath);
+    if strcmp(FolderName,'Dropbox')     
+        toolboxPath = fullfile(currentPath,'Dropbox',...
+          'sspsoct_toolbox');
+        addpath(genpath(toolboxPath));
+        break;
+    end
+    ParentFolderPath = currentPath;
+end
 
 
 kinterval = 0.0000001;
@@ -38,8 +38,7 @@ Jsample = system.space(Jsample,500e3);
 
 
 %%
-phantom = Sample(system.k);
-phantom.layered_sample(500e3,10);
+
 
 calib = Sample(system.k);
 calib.add_layer([0.001 0.001],[0 0],[1.3 1.3],0e3,0);
@@ -64,8 +63,9 @@ ZeroP
 M100P
 zgrid = (M100P-ZeroP)*10*2;
 %stop
-
 %%
+phantom = Sample(system.k);
+phantom.layered_sample(500e3,10);
 JsampleGT = Jsample;
 Jsample = phantom.backscatter(Jsample);
 Jtruth = phantom.backscatter_ground_truth(JsampleGT(2800,:));
@@ -90,8 +90,4 @@ Stru = tom2Stokes(Jtruth(:,1),Jtruth(:,2));
 Strun = normalizeStokes(Stru);
 figure(2)
 see.plotpoincare(Strun)
-
-
-
-
 
