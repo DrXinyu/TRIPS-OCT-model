@@ -2,19 +2,8 @@ clc
 clear
 close all
 
-%addpath('PSOCT_simulation_toolbox_v1')
-ParentFolderPath = fileparts(pwd);
+addpath('PSOCT_simulation_toolbox_v1')
 
-for index = 1:50
-    [currentPath, FolderName] = fileparts(ParentFolderPath);
-    if strcmp(FolderName,'Dropbox')     
-        toolboxPath = fullfile(currentPath,'Dropbox',...
-          'sspsoct_toolbox');
-        addpath(genpath(toolboxPath));
-        break;
-    end
-    ParentFolderPath = currentPath;
-end
 
 
 kinterval = 0.0000001;
