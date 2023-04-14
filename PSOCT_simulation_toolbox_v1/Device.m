@@ -160,7 +160,7 @@ classdef Device < handle
 %             Fout(:,2) = (Fout(:,2),round(length(self.k)/realpn*2);
             Fout = interp1((1:length(self.k))',Fout,resamplepn);
             
-            Fout = Fout+0.000001*randn(size(Fout)); %0.0001
+            Fout = Fout+0.00015*randn(size(Fout)); %0.0001
             
         end
 

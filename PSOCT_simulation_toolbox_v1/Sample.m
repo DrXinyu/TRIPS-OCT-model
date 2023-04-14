@@ -78,11 +78,15 @@ classdef Sample < handle
             end        
         end
 
-        function Jout = backscatter_ground_truth(self,Jin)
+        function Jout = backscatter_ground_truth(self,Jin,zgrid)
+
+            if nargin <= 2
+               zgrid = self.zgrid; 
+            end
 
             Jt = Jin;
             k = self.k(round(length(self.k)/2));
-            zgrid = self.zgrid;
+            %zgrid = self.zgrid;
             for Sindex = 1:round(length(self.sstruct))
                 RotA = [cos(self.sstruct{Sindex}.a) sin(self.sstruct{Sindex}.a)
                         -sin(self.sstruct{Sindex}.a) cos(self.sstruct{Sindex}.a)];
@@ -212,7 +216,7 @@ classdef Sample < handle
 
             deltaN = rand(Nlayer,1)*0.001;
             oa = rand(Nlayer,1)*pi;
-            inte = 10.^(rand(Nlayer,1)*3)./(10.^6);
+            inte = 10.^(rand(Nlayer,1)*2.5)./(10.^6);
 
 
             for ind = 1:Nlayer
